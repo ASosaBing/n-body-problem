@@ -53,17 +53,23 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
                 // therefore, we must use a first frame to set the masses before calulation
                 for(let i = 0; i < n_bodies_num; i++){
                     bodyRefs[i].current.setAdditionalMass(masses[i]);
+                    totalMass += masses[i];
                 }
+
+                firstRun = false;
+
             }
+            
+            
+            for(let i = 0 ; i < n_bodies_num; i++){
+                com = {x: com.x + bodyRefs[i].current.mass() * bodyRefs[i].current.translation().x, 
+                       y: com.y + bodyRefs[i].current.mass() * bodyRefs[i].current.translation().y,
+                       z: com.z + bodyRefs[i].current.mass() * bodyRefs[i].current.translation().z}
+            }
+            
+            com = {x: com.x / totalMass, y: com.y/ totalMass, z:com.z/totalMass};
+            console.log(com)
 
-
-                for(let i =0 ; i < n_bodies_num; i++){
-                    totalMass += bodyRefs[i].current.mass();
-                    com = {x: com.x + bodyRefs[i].current.mass() * bodyRefs[i].current.translation().x, 
-                           y: com.y + bodyRefs[i].current.mass() * bodyRefs[i].current.translation().y,
-                           z: com.z + bodyRefs[i].current.mass() * bodyRefs[i].current.translation().z}
-                }
-                com = {x: com.x / totalMass, y: com.y/ totalMass, z:com.z/totalMass};
                 
                 
 
@@ -76,8 +82,7 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
                             
                             let targetBody = bodyRefs[i].current;
                             let currentBody = bodyRefs[j].current;
-                            console.log(currentBody.mass());
-                            console.log(targetBody.mass());
+                            
 
                             
                             let r = {x: currentBody.translation().x - targetBody.translation().x ?? 0, 
@@ -116,6 +121,10 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
             
         }
 
+
+        //reset veriables so they dont carry over into the next
+        //frames calculation
+        com = {x: 0, y: 0, z:0};
     }
         , []);
 
