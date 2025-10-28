@@ -1,27 +1,48 @@
 'use client';
-
+//style imports
 import styles from "./page.module.css";
-import PhysicsSimulation from "../Components/PhysicsSimulation.jsx";
+
+//component imports
+import PhysicsSimulation from "../Components/PhysicsSimulation/PhysicsSimulation.jsx";
+import PhysicsControls from "../Components/PhysicsControls/PhysicsControls.jsx";
+import PhysicsButton from "../Components/Button/PhysicsButton.jsx";
+
+//three.js imports
 import {Canvas} from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 
 
 export default function Home() {
+  let bodies = 2;
   let masses = [1, 1000];
-  
-  const generateVelocities = () => {
+  let radii = [5, 20];
+  let colors = ["red", "green"];
+  let positions = [[-50, 0, 0], [50, 0, 0]];
+  let linearVelocity = [[0, 200, 0], [0, -.2, 0]];
+  let angularVelocity = [[0, 0, 0], [0, 0, 0]];
+  let gravitationalConstant = 1;
 
-  }
+  
+  
+  
 
 
 
   return (
     <div className={styles.page} id="page-container">
+
+
+      {/*The control UI for the simulation */}
+      <PhysicsControls/>
+      
+
       {/*all initial condiitons for the simulation*/}
-      <Canvas  camera={{position: [0, 0, 1000], fov: 75, near: 0.1, far: 10000}}>
-        <PhysicsSimulation n_bodies={3} radii={[10, 10, 10]} masses={[100, 100, 100]} colors={["red", "green"]} positions={[[-20, 0, 0], [20, 0, 0], [0, -100, 0]]} linearVelocity={[[0,60,-30], [30, -60, 0], [-30, 0, 30]]} angularVelocity={[]} gravitationalConstant={1}/>
+      <Canvas  camera={{position: [0, 0, 50], fov: 75, near: 0.1, far: 10000}}>
+        <PhysicsSimulation n_bodies={bodies} radii={radii} masses={masses} colors={colors} positions={positions} linearVelocity={linearVelocity} angularVelocity={angularVelocity} gravitationalConstant={gravitationalConstant}/>
         <OrbitControls/>
       </Canvas>
+
+      
       
     </div>
   );

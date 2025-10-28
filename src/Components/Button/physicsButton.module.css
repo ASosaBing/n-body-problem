@@ -1,0 +1,16 @@
+
+
+
+.button {
+    font-size: var(--font-size, 24px);
+    display: flex;
+    width: var(--button-width, 400px);
+    height: var(--button-height, 50px);
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: rgba(217, 217, 217, 0.87);
+}

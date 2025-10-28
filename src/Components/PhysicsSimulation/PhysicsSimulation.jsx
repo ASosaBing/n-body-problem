@@ -6,7 +6,7 @@ import { createRef, Suspense, useEffect, useState } from 'react';
 
 import React, {useRef, useMemo} from 'react';
 import { AmbientLight, SphereGeometry, Spherical } from 'three';
-import SphericalBody  from './SphericalBody.jsx';
+import SphericalBody  from '../SphericalBody/SphericalBody.jsx';
 
 
 

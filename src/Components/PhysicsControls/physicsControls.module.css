@@ -1,0 +1,19 @@
+.physicsControlContainer {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 10;
+    top: 0px;
+    right: 0px;
+    width: auto;
+    height: 100%;
+
+ 
+}
+
+.buttonRow {
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+}
