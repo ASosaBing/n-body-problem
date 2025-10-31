@@ -9,8 +9,8 @@
     padding: 10px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
     flex-shrink: 0;
-    border-radius: 15px;
+    border-radius: var(--top-left-radius, 15px) var(--top-right-radius, 15px) var(--bottom-right-radius, 15px) var(--bottom-left-radius, 15px);
     background: rgba(217, 217, 217, 0.87);
+    margin: 0;
 }

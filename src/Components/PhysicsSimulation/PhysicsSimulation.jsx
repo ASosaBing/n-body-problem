@@ -10,7 +10,7 @@ import SphericalBody  from '../SphericalBody/SphericalBody.jsx';
 
 
 
-const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children, linearVelocity, angularVelocity, gravitationalConstant, ...args}) => {
+const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children, linearVelocity, angularVelocity, gravitationalConstant, pauseSimulation, ...args}) => {
     
     
 
@@ -21,7 +21,6 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
     const n_bodies_num = n_bodies ? n_bodies : 2;
     const n_bodies_array = []
     const bodyRefs = useMemo(() => Array.from({length: n_bodies_num}).map(() => React.createRef()), []);
-    const [runningSimulation, setSimulationState] = useState(true);
     let firstRun = true;
 
 
@@ -30,7 +29,8 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
     let com = {x: 0, y: 0, z:0};
     let totalMass = 0;
 
-    
+
+
     let gravitationalForceVector;
     //iterate over n_bodies and create array of objects with radius, mass, color, and position vectors
     for(let i = 0; i < n_bodies_num; i++){
@@ -46,7 +46,7 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
     //use Frame is used because we want to nudge the bodies every frame
     //if we skip frames then the simulation doesnt work
     useFrame(()=> {
-        if(bodyRefs[n_bodies - 1].current && !runningSimulation){
+        if(bodyRefs[n_bodies - 1].current && !pauseSimulation){
 
             if(firstRun){
                 // there is no way to edit the colliders used to set the masses, 
@@ -128,15 +128,6 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
     }
         , []);
 
-    //until UI is implemented
-    const handleKeyboardInput = (e) => {
-        
-        if(e.keyCode == 32){
-            setSimulationState(!runningSimulation);
-        }
-    }
-    addEventListener("keydown", handleKeyboardInput);
-
     //vector helper function
     const getMagnitude = (vector) => {
         return Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2) + Math.pow(vector.z, 2));
@@ -147,7 +138,7 @@ const PhysicsSimulation = ({n_bodies, radii, masses, colors, positions, children
             <>
                 <directionalLight intensity={1} position={[0,0,10]}/>
                 <Suspense>
-                    <Physics timeStep={1/60} gravity={[0, 0, 0]} paused={runningSimulation} colliders={false} >
+                    <Physics timeStep={1/60} gravity={[0, 0, 0]} paused={pauseSimulation} colliders={false} >
                         {n_bodies_array.map((body) => (
                             <SphericalBody  radius={body.radius} mass={body.mass} color={body.color} position={body.position} key={body.id} linearVelocity={body.linearVelocity} angularVelocity={body.angularVelocity} ref={body.forceRef}/>
                         ))}

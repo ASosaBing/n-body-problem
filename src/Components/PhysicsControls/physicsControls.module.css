@@ -8,12 +8,11 @@
     right: 0px;
     width: auto;
     height: 100%;
-
- 
+    pointer-events: none;
 }
 
 .buttonRow {
     display: flex;
-    justify-content: space-evenly;
-    width: 400px;
+    justify-content: space-around;
+    width: 100%;
 }

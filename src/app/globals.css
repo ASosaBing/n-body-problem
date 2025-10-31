@@ -5,7 +5,10 @@
     font-style: normal;
 }
 
-
+* {
+    margin: 0;
+    padding: 0;
+}   
 .relativePositioning {
     position: relative;
 }
